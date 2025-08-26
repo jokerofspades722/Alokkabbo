@@ -7,8 +7,498 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #007bff !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: #fff;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,123,255,0.3);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #007bff;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: #f8f9fa;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .enlarge-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .enlarge-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Service Cards */
+        .service-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-img-wrapper {
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-features p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #007bff;
+            color: #007bff;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-outline-primary:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,123,255,0.3);
+        }
+
+        /* Service Sections */
+        .services-section,
+        .engagement-section,
+        .wedding-reception-section,
+        .birthday-baby-section {
+            padding: 5rem 0;
+        }
+
+        .engagement-section {
+            background: #f8f9fa;
+        }
+
+        .birthday-baby-section {
+            background: #f8f9fa;
+        }
+
+        .landscape-img {
+            height: 200px !important;
+            object-fit: cover;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: #f8f9fa;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 5px solid #007bff;
+        }
+
+        .team-member h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #0056b3;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #007bff;
+        }
+
+        .footer p {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer .social-links a {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #999;
+        }
+
+        .heart {
+            color: #e74c3c;
+        }
+
+        .footer-bottom a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: #0056b3;
+        }
+
+        /* Modal */
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .modal-body {
+            padding: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                background-attachment: scroll;
+                min-height: 100vh;
+                height: auto;
+                padding: 6rem 0 4rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .service-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .team-member {
+                margin-bottom: 2rem;
+            }
+
+            .navbar-nav {
+                text-align: center;
+                padding-top: 1rem;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .gallery-item img {
+                height: 200px;
+            }
+
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .service-card img {
+                height: 180px;
+            }
+
+            .landscape-img {
+                height: 180px !important;
+            }
+        }
+
+        /* Lazy loading placeholder */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        img.lazy.loaded {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -139,22 +629,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card service-card">
                         <img src="Outdoor/couple.jpg" class="card-img-top" alt="Couple Photoshoot">
                         <div class="card-body">
                             <h5 class="card-title">Couple Photoshoot</h5>
-                            <p class="card-text">1 Senior Photographer<br>Duration: 3 Hours<br>Unlimited Pictures - All Edited<br>Delivery within 10 Days</p>
+                            <div class="card-features">
+                                <p>1 Senior Photographer</p>
+                                <p>Duration: 3 Hours</p>
+                                <p>Unlimited Pictures - All Edited</p>
+                                <p>Delivery within 10 Days</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">3500 Taka</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card service-card">
                         <img src="Outdoor/combo.jpg" class="card-img-top" alt="Couple Combo">
                         <div class="card-body">
                             <h5 class="card-title">Couple Combo</h5>
-                            <p class="card-text">1 Senior Photographer<br>1 Cinematographer<br>Duration: 3 Hours<br>Unlimited Pictures - All Edited<br>1 Promo Video (2.5 - 5 min)<br>Delivery within 15 Days</p>
+                            <div class="card-features">
+                                <p>1 Senior Photographer</p>
+                                <p>1 Cinematographer</p>
+                                <p>Duration: 3 Hours</p>
+                                <p>Unlimited Pictures - All Edited</p>
+                                <p>1 Promo Video (2.5 - 5 min)</p>
+                                <p>Delivery within 15 Days</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">7000 Taka</a>
                         </div>
                     </div>
@@ -167,22 +669,38 @@
         <div class="container text-center">
             <h2 class="section-title mb-5">Engagement, Ashirbad, Anniversary</h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="card service-card">
                         <img src="Engagement/basic.jpg" class="card-img-top landscape-img" alt="Basic Photography">
                         <div class="card-body">
                             <h5 class="card-title">Basic Photography</h5>
-                            <p class="card-text">1 Senior Photographer<br>Duration: 5 Hours<br>Unlimited Pictures - All Edited<br>50 4R Printed Copies<br>Delivery within 15 Days</p>
+                            <div class="card-features">
+                                <p>1 Senior Photographer</p>
+                                <p>Duration: 5 Hours</p>
+                                <p>Unlimited Pictures - All Edited</p>
+                                <p>50 4R Printed Copies</p>
+                                <p>Delivery within 15 Days</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">4500 Taka</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="card service-card">
                         <img src="Engagement/combo.jpg" class="card-img-top landscape-img" alt="Combo Package">
                         <div class="card-body">
                             <h5 class="card-title">Combo Package</h5>
-                            <p class="card-text">1 Senior Photographer<br>1 Cinematographer<br>Duration: 5 Hours<br>Unlimited Pictures - All Post Processed<br>Special Edited 150 Copies<br>50 4R Printed Copies<br>1 Promo and 1 Full Video (25-30 min)<br>1 Pen Drive<br>Delivery within 10 Days</p>
+                            <div class="card-features">
+                                <p>1 Senior Photographer</p>
+                                <p>1 Cinematographer</p>
+                                <p>Duration: 5 Hours</p>
+                                <p>Unlimited Pictures - All Post Processed</p>
+                                <p>Special Edited 150 Copies</p>
+                                <p>50 4R Printed Copies</p>
+                                <p>1 Promo and 1 Full Video (25-30 min)</p>
+                                <p>1 Pen Drive</p>
+                                <p>Delivery within 10 Days</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">8000 Taka</a>
                         </div>
                     </div>
@@ -195,54 +713,54 @@
         <div class="container text-center">
             <h2 class="section-title mb-5">Wedding & Reception Packages</h2>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card service-card">
                         <img src="Wedding/silver.jpg" class="card-img-top landscape-img" alt="Silver Package">
                         <div class="card-body">
                             <h5 class="card-title">Silver Package</h5>
-                            <p class="card-text">
-                                1 Photographer<br>
-                                Duration: 5 Hours<br>
-                                1 Camera Unit<br>
-                                Number of Pictures: Unlimited<br>
-                                Specially Edited Photos: 150+ Copies<br>
-                                50 Copies 4R / Pen Drive
-                            </p>
+                            <div class="card-features">
+                                <p>1 Photographer</p>
+                                <p>Duration: 5 Hours</p>
+                                <p>1 Camera Unit</p>
+                                <p>Number of Pictures: Unlimited</p>
+                                <p>Specially Edited Photos: 150+ Copies</p>
+                                <p>50 Copies 4R / Pen Drive</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">10000 Taka</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card service-card">
                         <img src="Wedding/gold.jpg" class="card-img-top landscape-img" alt="Gold Package">
                         <div class="card-body">
                             <h5 class="card-title">Gold Package</h5>
-                            <p class="card-text">
-                                1 Photographer<br>
-                                1 Cinematographer<br>
-                                Event Duration: 5 Hours<br>
-                                Number of Pictures: Unlimited<br>
-                                Specially Edited Photos: 200+ Copies<br>
-                                100 Copies 4R / Pen Drive
-                            </p>
+                            <div class="card-features">
+                                <p>1 Photographer</p>
+                                <p>1 Cinematographer</p>
+                                <p>Event Duration: 5 Hours</p>
+                                <p>Number of Pictures: Unlimited</p>
+                                <p>Specially Edited Photos: 200+ Copies</p>
+                                <p>100 Copies 4R / Pen Drive</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">15000 Taka</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card service-card">
                         <img src="Wedding/diamond.jpg" class="card-img-top landscape-img" alt="Diamond Package">
                         <div class="card-body">
                             <h5 class="card-title">Diamond Package</h5>
-                            <p class="card-text">
-                                2 Senior Photographers<br>
-                                1 Junior Photographer<br>
-                                1 Cinematographer<br>
-                                Event Duration: 6 Hours<br>
-                                Number of Pictures: Unlimited<br>
-                                Specially Edited Photos: 250+ Copies<br>
-                                150 Copies 4R / 1 Pen Drive
-                            </p>
+                            <div class="card-features">
+                                <p>2 Senior Photographers</p>
+                                <p>1 Junior Photographer</p>
+                                <p>1 Cinematographer</p>
+                                <p>Event Duration: 6 Hours</p>
+                                <p>Number of Pictures: Unlimited</p>
+                                <p>Specially Edited Photos: 250+ Copies</p>
+                                <p>150 Copies 4R / 1 Pen Drive</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">20000 Taka</a>
                         </div>
                     </div>
@@ -255,35 +773,35 @@
         <div class="container text-center">
             <h2 class="section-title mb-5">Birthday & Baby Photoshoot Packages</h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="card service-card">
                         <img src="Baby/basic.jpg" class="card-img-top landscape-img" alt="Basic Package">
                         <div class="card-body">
                             <h5 class="card-title">Basic Package</h5>
-                            <p class="card-text">
-                                Duration: 3 Hours<br>
-                                Print 4R: 50 Copies<br>
-                                Unlimited Post Processed Pictures<br>
-                                Special Edited: 150 Copies
-                            </p>
+                            <div class="card-features">
+                                <p>Duration: 3 Hours</p>
+                                <p>Print 4R: 50 Copies</p>
+                                <p>Unlimited Post Processed Pictures</p>
+                                <p>Special Edited: 150 Copies</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">4000 Taka</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="card service-card">
                         <img src="Baby/combo.jpg" class="card-img-top landscape-img" alt="Combo Package">
                         <div class="card-body">
                             <h5 class="card-title">Combo Package</h5>
-                            <p class="card-text">
-                                1 Photographer<br>
-                                1 Cinematographer<br>
-                                Duration: 3 Hours<br>
-                                Print 4R: 100 Copies / Pen Drive<br>
-                                Unlimited Post Processed Pictures<br>
-                                Special Edited: 200+ Copies<br>
-                                Includes 1 Promo & 1 Full Video
-                            </p>
+                            <div class="card-features">
+                                <p>1 Photographer</p>
+                                <p>1 Cinematographer</p>
+                                <p>Duration: 3 Hours</p>
+                                <p>Print 4R: 100 Copies / Pen Drive</p>
+                                <p>Unlimited Post Processed Pictures</p>
+                                <p>Special Edited: 200+ Copies</p>
+                                <p>Includes 1 Promo & 1 Full Video</p>
+                            </div>
                             <a href="#contact" class="btn btn-outline-primary">8000 Taka</a>
                         </div>
                     </div>
@@ -306,7 +824,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-member">
                         <img src="Team/Rafsun.jpg" alt="Rafsun" class="img-fluid rounded-circle mb-3">
                         <h3>Rafsun Anam</h3>
@@ -316,7 +834,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-member">
                         <img src="Team/rk.jpg" alt="RK" class="img-fluid rounded-circle mb-3">
                         <h3>Rk Ripon</h3>
@@ -326,7 +844,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="team-member">
                         <img src="Team/nion.jpg" alt="Nion" class="img-fluid rounded-circle mb-3">
                         <h3>Nion Bhowmik</h3>
@@ -336,7 +854,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
                     <div class="team-member">
                         <img src="Team/emon.jpg" alt="Emon" class="img-fluid rounded-circle mb-3">
                         <h3>Md. Emon</h3>
@@ -417,6 +935,7 @@
                             let lazyImage = entry.target;
                             lazyImage.src = lazyImage.dataset.src;
                             lazyImage.classList.remove("lazy");
+                            lazyImage.classList.add("loaded");
                             lazyImageObserver.unobserve(lazyImage);
                         }
                     });
@@ -440,6 +959,7 @@
                                     
                                     lazyImage.src = lazyImage.dataset.src;
                                     lazyImage.classList.remove("lazy");
+                                    lazyImage.classList.add("loaded");
 
                                     lazyImages = lazyImages.filter(function(image) {
                                         return image !== lazyImage;
